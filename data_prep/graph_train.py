@@ -43,7 +43,7 @@ spread = tuple(opt.spread)
 start = spread[0]
 end = spread[1]
 step = spread[2]
-SIZE = opt.output_dim #512
+SIZE = 512
 numkeypoints = opt.num_face_keypoints
 get_factexts = opt.facetexts #True
 boxbuffer = opt.boxbuffer #70
@@ -51,7 +51,7 @@ boxbuffer = opt.boxbuffer #70
 numframesmade = 0
 n = start
 
-print step
+print (step)
 
 startx = 0
 endx = myshape[1]
@@ -84,11 +84,11 @@ if opt.debug and (not os.path.exists(savedir + '/debug')):
 
 print('----------------- Loading Frames -----------------')
 frames = sorted(os.listdir(frames_dir))
-print frames
+print(frames)
 print('----------------- All Loaded -----------------')
 
 while n <= end:
-	print n
+	print(n)
 	framesmadestr = '%06d' % numframesmade
 
 	filebase_name = os.path.splitext(frames[n])[0]
@@ -102,20 +102,25 @@ while n <= end:
 	facepts = readkeypointsfile(key_name + "_face")
 	r_handpts = readkeypointsfile(key_name + "_hand_right")
 	l_handpts = readkeypointsfile(key_name + "_hand_left")
+	
 	if posepts is None: ## try json
-		posepts, facepts, r_handpts, l_handpts = readkeypointsfile(key_name + "_keypoints")
+		posepts, facepts, r_handpts, l_handpts = readkeypointsfile_json(key_name + "_keypoints")
 		if posepts is None:
 			print('unable to read keypoints file')
 			import sys
 			sys.exit(0)
+	
+	#try:
+		#posepts, facepts, r_handpts, l_handpts = readkeypointsfile_json(key_name + "_keypoints")
 
+		
 	if not (len(posepts) in poselen):
 		# empty or contains multiple detections
-		print "empty", len(posepts)
+		print("empty", len(posepts))
 		n += 1
 		continue
 	else:
-		print 'graphing file %s' % filebase_name
+		print('graphing file %s' % filebase_name)
 		if opt.map_25_to_23:
 			posepts = map_25_to_23(posepts)
 

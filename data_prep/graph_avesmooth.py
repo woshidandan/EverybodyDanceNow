@@ -13,8 +13,8 @@ from shutil import copyfile
 from skimage import img_as_float
 from functools import reduce
 from renderopenpose import *
-from scipy.misc import imresize
-from scipy.misc import imsave
+#from scipy.misc import imresize
+#from scipy.misc import imsave
 import os
 import argparse
 
@@ -57,7 +57,7 @@ boxbuffer = opt.boxbuffer
 numframesmade = 0
 n = start
 
-print step
+print(step)
 
 startx = 0
 endx = myshape[1]
@@ -101,7 +101,7 @@ original_queue = []
 
 n = start
 while n <= end:
-	print n
+	print(n)
 	framesmadestr = '%06d' % numframesmade
 
 	filebase_name = os.path.splitext(frames[n])[0]
@@ -116,16 +116,23 @@ while n <= end:
 	r_handpts = readkeypointsfile(key_name + "_hand_right")
 	l_handpts = readkeypointsfile(key_name + "_hand_left")
 	if posepts is None: ## try json
-		posepts, facepts, r_handpts, l_handpts = readkeypointsfile(key_name + "_keypoints")
+		posepts, facepts, r_handpts, l_handpts = readkeypointsfile_json(key_name + "_keypoints")
 		if posepts is None:
 			print('unable to read keypoints file')
 			import sys
 			sys.exit(0)
+	
+	#try:
+		#posepts, facepts, r_handpts, l_handpts = readkeypointsfile_json(key_name + "_keypoints")
 
+		
 	if not (len(posepts) in poselen):
-		print "EMPTY"
+		# empty or contains multiple detections
+		print("empty", len(posepts))
 		n += 1
 		continue
+
+
 	oriImg = cv.imread(frame_name)
 	curshape = oriImg.shape
 
