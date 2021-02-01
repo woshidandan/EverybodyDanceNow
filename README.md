@@ -21,7 +21,7 @@ pip install dominate
 git clone https://github.com/carolineec/EverybodyDanceNow
 ```
 
-I ran my code on Colab, and the only the T4 Tesla Accelerator has enough Vram to run this project. The below command are copied from the original author's repo, but I recommend running the commands in the Notebooks. Please don't just run all the cells, instead, please check with what they do first before running.
+I ran my code on Colab, and the only the T4 Tesla Accelerator has enough Vram to run this project. The below command are copied from the original author's repo, but I recommend running the cells in the Notebooks instead. Please don't just run all the cells, instead, please check with what they do first before running.
 
 First, open the Openpose Notebook and install openpose, then convert the video to frames with ffmpeg and use the openpose demo to create json keypoint files(This is around 2 cells).
 Then, use either the graph_train and graph_avesmooth cell to convert the frames and keypoints to images and labels for pix2pixHD.
