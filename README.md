@@ -2,9 +2,9 @@
 
 ### [[website]](https://carolineec.github.io/everybody_dance_now/) [[paper]](https://arxiv.org/pdf/1808.07371.pdf) [[youtube]](https://www.youtube.com/watch?v=PCBTZh41Ris)
 
-![alt text](https://laughingsquid.com/wp-content/uploads/2018/08/Everybody-Dance-Now.gif)
+Colab Version by Stanley Shen, and minor bug fixes plus port for openpose preprocessing scripts to Python 3
 
-Implementation accompanying paper:  
+Original Implementation:  
 Everybody Dance Now  
 Caroline Chan, Shiry Ginosar, Tinghui Zhou, Alexei A. Efros  
 UC Berkeley  
@@ -21,8 +21,12 @@ pip install dominate
 git clone https://github.com/carolineec/EverybodyDanceNow
 ```
 
-We ran our code on a 12GB NVIDIA GPU. Multi-GPU and CPU setups are currently untested.
+I ran my code on Colab, and the only the T4 Tesla Accelerator has enough Vram to run this project. The below command are copied from the original author's repo, but I recommend running the commands in the Notebooks. Please don't just run all the cells, instead, please check with what they do first before running.
 
+First, open the Openpose Notebook and install openpose, then convert the video to frames with ffmpeg and use the openpose demo to create json keypoint files(This is around 2 cells).
+Then, use either the graph_train and graph_avesmooth cell to convert the frames and keypoints to images and labels for pix2pixHD.
+Then train in the EverybodyDanceNow notebook with either the local/local+face_gan model, and stop when you are satisifed with the ouputs.
+Then convert the test data with the Openpose Notebook, and go back and inference with the EveryBodyDanceNow Notebook. 
 ## Training
 
 #### Global Stage
@@ -147,7 +151,7 @@ will prepare a train dataset with subfolders
 - train_facetexts128 (contains face 128x128 bounding box coordinates in .txt files)
 No smoothing
 ```
-python graph_train.py \
+python3 graph_train.py \
 --keypoints_dir /data/scratch/caroline/keypoints/jason_keys \
 --frames_dir /data/scratch/caroline/frames/jason_frames \
 --save_dir /data/scratch/caroline/savefolder \
@@ -161,7 +165,7 @@ will prepare a dataset with averaged smoothed keypoints with subfolders (usually
 - test_img (contains 1024x512 targets)
 - test_factexts128 (contains face 128x128 bounding box coordinates in .txt files)
 ```
-python graph_avesmooth.py \
+python3 graph_avesmooth.py \
 --keypoints_dir /data/scratch/caroline/keypoints/wholedance_keys \
 --frames_dir /data/scratch/caroline/frames/wholedance \
 --save_dir /data/scratch/caroline/savefolder \
@@ -175,7 +179,7 @@ will prepare a dataset with global pose normalization + median smoothing
 - test_img (contains 1024x512 targets)
 - test_factexts128 (contains face 128x128 bounding box coordinates in .txt files)
 ```
-python graph_posenorm.py \
+python3 graph_posenorm.py \
 --target_keypoints /data/scratch/caroline/keypoints/wholedance_keys \
 --source_keypoints /data/scratch/caroline/keypoints/dubstep_keypointsFOOT \
 --target_shape 1080 1920 3 \
@@ -203,7 +207,7 @@ If you find this work useful please use the following citation:
 
 ## Acknowledgements
 
-Model code adapted from [pix2pixHD](https://github.com/NVIDIA/pix2pixHD) and [pytorch-CycleGAN-and-pix2pix](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix)
+Model code adapted from [pix2pixHD](https://github.com/NVIDIA/pix2pixHD) and [pytorch-CycleGAN-and-pix2pix](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix) and from [https://github.com/carolineec/EverybodyDanceNow]
 
 Data Preparation code adapted from [Realtime_Multi-Person_Pose_Estimation](https://github.com/ZheC/Realtime_Multi-Person_Pose_Estimation)
 
