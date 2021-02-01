@@ -207,7 +207,9 @@ If you find this work useful please use the following citation:
 
 ## Acknowledgements
 
-Model code adapted from [pix2pixHD](https://github.com/NVIDIA/pix2pixHD) and [pytorch-CycleGAN-and-pix2pix](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix) and from [https://github.com/carolineec/EverybodyDanceNow]
+Model code adapted from [pix2pixHD](https://github.com/NVIDIA/pix2pixHD) and [pytorch-CycleGAN-and-pix2pix](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix) 
+
+Original code from [Caroline Chan's Repo](https://github.com/carolineec/EverybodyDanceNow}
 
 Data Preparation code adapted from [Realtime_Multi-Person_Pose_Estimation](https://github.com/ZheC/Realtime_Multi-Person_Pose_Estimation)
 
