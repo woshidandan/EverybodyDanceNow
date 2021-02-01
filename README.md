@@ -2,7 +2,7 @@
 
 ### [[website]](https://carolineec.github.io/everybody_dance_now/) [[paper]](https://arxiv.org/pdf/1808.07371.pdf) [[youtube]](https://www.youtube.com/watch?v=PCBTZh41Ris)
 
-Colab Version by Stanley Shen, and minor bug fixes plus port for openpose preprocessing scripts to Python 3
+Colab Version by Stanley Shen: this repo includes minor bug fixes and ports for Openpose preprocessing scripts to Python 3
 
 Original Implementation:  
 Everybody Dance Now  
