@@ -176,8 +176,8 @@ def makebox128(miny, maxy, minx, maxx, dimy=128, dimx=128):
 
 def renderposeCOCO(posepts, canvas, keyname=""):
 	colors = [[255, 0, 0], [255, 85, 0], [255, 170, 0], [255, 255, 0], [170, 255, 0], [85, 255, 0], [0, 255, 0], \
-          [0, 255, 85], [0, 255, 170], [0, 255, 255], [0, 170, 255], [0, 85, 255], [0, 0, 255], [85, 0, 255], \
-          [170, 0, 255], [255, 0, 255], [255, 0, 170], [255, 0, 85]]
+		  [0, 255, 85], [0, 255, 170], [0, 255, 255], [0, 170, 255], [0, 85, 255], [0, 0, 255], [85, 0, 255], \
+		  [170, 0, 255], [255, 0, 255], [255, 0, 170], [255, 0, 85]]
 	orgImgshape = canvas.shape
 
 
@@ -532,7 +532,6 @@ def aveface(posepts):
 		return posepts[(3*rear):(3*rear)+2]
 	else:
 		return posepts[(3*lear):(3*lear)+2]
-
 def get_pose_stats(posepts):
 
 	nose = 0
@@ -600,6 +599,42 @@ def get_pose_stats(posepts):
 		return height, min_tip_toe, max_tip_toe
 	else:
 		return None
+	
+def get_pose_stats_custom(posepts):
+
+	nose = 0
+	rear = 0
+	lear = 0
+
+	rfoot = 0
+	lfoot = 0
+
+	if len(posepts) == 54: ## COCO:
+		pass
+	elif len(posepts) == 69: ## POSE_BODY_23:
+		pass
+	elif len(posepts) == 75: ## POSE_BODY_25
+		# LOOK UP THE FORMAT, REMEMBER FORMAT IS X,Y,cofidence FOR EACH POINT, HENCE MULTIPLY BY 3
+		LShoulder = posepts[5*3],  posepts[(5*3)+1]
+		LHip = posepts[12*3],  posepts[(12*3)+1]
+		MidHip = posepts[8*3],  posepts[(8*3)+1]
+		RShoulder = posepts[2*3],  posepts[(2*3)+1]
+		RHip = posepts[9*3],  posepts[(9*3)+1]
+		height = sqrt((RHip[0]-RShoulder[0])**2 + (RHip[1]-RShoulder[1])**2)
+
+
+		min_hip_wide = min(RHip[1], LHip[1])
+		max_hip_wide = max(RHip[1], LHip[1])
+		#print(posepts[(5*3)+2])
+		return height, min_hip_wide, max_hip_wide
+	else:
+		print("pose length of %d format is not supported" % len(posepts))
+		import sys
+		sys.exit(1)
+		return None
+	#print( LShoulder)#, LHip, MidHip, RShoulder, RHip )
+	#print(len(posepts))
+
 
 # def get_pose_stats23(posepts):
 
