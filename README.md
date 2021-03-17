@@ -5,12 +5,12 @@ This repo contains some bug fixes for the data preprocessing and inferencing scr
 Currently, most of the code work on Google Colab, but the pose normalization code does not work, most of the other scripts are fully functioning.
 I'm working on fixing it and/or replacing it with a completely new script.
 
-##Training
+## Training
 Then run the Openpose file, but when creating the label and target images, run _only_ the graph_train.py cell, then flush and unmount with the last cell. 
 Then, run Everybody Dance Now file, and train the global stage for approximately 5 epochs, then train the local stage for approximately 30 epochs, and the local stage with face generator and discriminator for around another 5 epochs. 
 This will take a _long_ time due to a large required dataset, in my case, alternating google colab accounts, it took around 3 days. 
 
-##Inferencing
+## Inferencing
 To inference, repeat the same Openpose steps above, but use the graph_avesmooth.py cell instead of graph_train.py cell, and use the dance video instead of training video. 
 Then run the first inferencing cell, as it include the face generator, and run the ffmpeg cell, but change the framerate to match the frame rate of the source dance video. 
 
